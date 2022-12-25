@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>計算機</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="請輸入待辦事項" @keyup.enter="addTodo()" v-model="inputValue"/>
+        <button @click="">新增事項</button>
+        <hr/>
+        <div>
+            <p v-for="(item,index) in todos" :key="index">{{ index+1 }}.{{ item }}
+                <button @click="removeTodo(index)">X</button>
+              </p>
+            </div>
+            <hr/>
+            <div v-if="todos.length !=0">
+              Total : {{ todos.length }} todo
+              <button @click="clearAll">Clear All</button>
+            </div>
+          </div>
+    </div>
+</body>
+<script>
+    Vue.createApp({
+        data: {
+            todos: ['學習', '睡覺', '做飯'], // 陣列資料裡的預設值，為了觀察先放入幾個元素為進入畫面的顯示，當然，也可以設空陣列，
+            inputValue: '', // 輸入框先初始空字串
+        },
+        methods: {
+            addTodo(){
+            // 增加 todo 的方法
+            this.todos.push(this.inputValue); // 使用陣列方法push()把輸入值放到陣列裡
+            console.log(this.todos);
+            this.inputValue = ''; // 1把輸入框清空
+            },
+            removeTodo(index){
+            // 刪除 todo
+            this.todos.splice(index, 1); // 使用陣列方法splice(指定的index開始，刪除一筆)，依照抓到的 index 刪除
+            },
+            clearAll(){
+            // 清除所有
+            this.todos = []; // 把儲存陣列的 todos 用空陣列賦值清空
+            },
+        },
+    });
+</script>
+<style>
+
+</style>
